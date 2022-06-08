@@ -1,0 +1,78 @@
+﻿@model IEnumerable<LibraryManager.DataAccess.Models.RegisterBookModel>
+
+@{
+    ViewData["Title"] = "BookList";
+}
+
+<h1>Book List</h1>
+
+<p>
+    <a asp-controller="RegisterBook" asp-action="RegisterBook">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublicationYear)
+            </th>
+            <th>
+                <b>Status</b>
+            </th>
+            <th>
+                <b>Delete</b>
+            </th>
+            <th>
+                <b>Edit</b>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicationYear)
+            </td>
+            <td>
+                <a asp-action="SetBookStatus" asp-route-Id="@item.Id">
+                    @if (item.IsActive)
+                    {
+                        <span class="text-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="text-dark">Disabled</span>
+                    }
+                </a>
+            </td>
+            <td>
+                <a asp-action="DeleteBook" asp-route-id="@item.Id">Delete</a>
+            </td>
+            <td>
+                <a asp-action="EditBook" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
